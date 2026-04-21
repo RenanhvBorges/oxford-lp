@@ -1,0 +1,26 @@
+{
+  "name": "Oxford Soluções Digitais",
+  "short_name": "Oxford",
+  "description": "Agência de tráfego pago e performance para empresários. Método Blue Wave.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#263fa3",
+  "theme_color": "#263fa3",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/assets/logo-oxford-mark-on-blue.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/logo-oxford-mark-v2-white.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
