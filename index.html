@@ -265,8 +265,9 @@ em.accent{font-style:italic;color:var(--oxford-terracotta);font-family:var(--fon
 .hero h1 strong{font-weight:400;color:#fff}
 .hero p.hero-sub{font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.55;color:rgba(255,255,255,.82);max-width:680px;margin:0 0 36px}
 .hero-meta{margin-top:72px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding-top:40px;border-top:1px solid rgba(255,255,255,.16);max-width:820px}
-.hero-meta div{color:rgba(255,255,255,.68);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-.hero-meta strong{font-family:var(--font-display);font-weight:400;font-size:clamp(1.75rem,3vw,2.5rem);color:#fff;display:block;text-transform:none;letter-spacing:-.01em;margin-bottom:6px;line-height:1}
+.hero-meta>div{display:flex;flex-direction:column}
+.hero-meta dt{order:2;margin:0;color:rgba(255,255,255,.68);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.hero-meta dd{order:1;margin:0 0 6px;font-family:var(--font-display);font-weight:400;font-size:clamp(1.75rem,3vw,2.5rem);color:#fff;letter-spacing:-.01em;line-height:1}
 
 /* ============================================================
    SECTION 2 — DOR
@@ -462,9 +463,9 @@ footer{padding:48px 0 32px;color:var(--fg-3);font-size:14px;background:var(--bg-
       <a href="#metodo" class="btn btn-ghost btn-lg">Conhecer o método</a>
     </div>
     <dl class="hero-meta">
-      <div><strong>+R$3 milhões</strong>em anúncios gerenciados</div>
-      <div><strong>3 continentes</strong>atendidos pela Oxford</div>
-      <div><strong>100%</strong>focados em resultado real</div>
+      <div><dt>Em anúncios gerenciados</dt><dd>+R$3 milhões</dd></div>
+      <div><dt>Atendidos pela Oxford</dt><dd>3 continentes</dd></div>
+      <div><dt>Focados em resultado real</dt><dd>100%</dd></div>
     </dl>
   </div>
 </section>
