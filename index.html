@@ -31,14 +31,10 @@
 <!-- PWA -->
 <link rel="manifest" href="/site.webmanifest">
 
-<!-- Resource hints para fontes (não bloqueantes) -->
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap"></noscript>
-
-<!-- Preload do LCP (hero é texto, fonte display crítica) -->
+<!-- Fontes self-hosted (elimina round-trips a fonts.googleapis.com/fonts.gstatic.com) -->
+<link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/prata.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/cormorant-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
 
 <!-- JSON-LD: Organization -->
 <script type="application/ld+json">
@@ -145,6 +141,25 @@
 <!-- TODO: Google Tag Manager / Meta Pixel - inserir aqui quando decidir analytics -->
 
 <style>
+/* =============================================================
+   Fontes self-hosted (latin subset, cobre pt-BR — U+0000-00FF)
+   ============================================================= */
+@font-face{
+  font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;
+  src:url('/fonts/manrope.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Prata';font-style:normal;font-weight:400;font-display:swap;
+  src:url('/fonts/prata.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;
+  src:url('/fonts/cormorant-garamond-italic.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 /* =============================================================
    Oxford Design System — tokens + critical CSS inline
    ============================================================= */
@@ -849,26 +864,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealSpans = document.querySelectorAll('.reveal-h2 span');
   const revealSection = document.querySelector('.scroll-reveal-text');
   if (revealSection && revealSpans.length > 0) {
-    window.addEventListener('scroll', () => {
+    let ticking = false;
+    const updateReveal = () => {
       const rect = revealSection.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       const start = windowHeight * 0.85;
       const end = windowHeight * 0.3;
       const current = rect.top;
-      
+
       let progress = (start - current) / (start - end);
       progress = Math.max(0, Math.min(1, progress));
-      
+
       const activeIndex = Math.floor(progress * revealSpans.length);
-      
-    revealSpans.forEach((span, index) => {
-      if (index <= activeIndex && progress > 0) {
-        span.classList.add('active');
-        revealSection.classList.add('active');
-      } else {
-        span.classList.remove('active');
+
+      revealSpans.forEach((span, index) => {
+        if (index <= activeIndex && progress > 0) {
+          span.classList.add('active');
+          revealSection.classList.add('active');
+        } else {
+          span.classList.remove('active');
+        }
+      });
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateReveal);
+        ticking = true;
       }
-    });
     }, { passive: true });
   }
 });
