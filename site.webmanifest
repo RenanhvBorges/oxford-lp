@@ -9,18 +9,5 @@
   "lang": "pt-BR",
   "dir": "ltr",
   "scope": "/",
-  "icons": [
-    {
-      "src": "/assets/logo-oxford-mark-on-blue.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/logo-oxford-mark-v2-white.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ]
+  "icons": []
 }

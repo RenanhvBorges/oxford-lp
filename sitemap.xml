@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://oxfordosd.com/</loc>
     <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://oxfordosd.com/assets/bg-brand-blue.png</image:loc>
-      <image:title>Oxford Soluções Digitais</image:title>
-      <image:caption>Agência de tráfego pago e performance para empresários</image:caption>
-    </image:image>
   </url>
 </urlset>
