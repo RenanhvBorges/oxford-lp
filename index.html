@@ -22,22 +22,13 @@
 <meta property="og:url" content="https://oxfordosd.com/">
 <meta property="og:title" content="Oxford Soluções Digitais — Tráfego Pago que Vende, Não que Aparenta">
 <meta property="og:description" content="Pare de gastar com campanhas que não vendem. Método Blue Wave — o ecossistema de aceleração que já gerou R$10 milhões em faturamento.">
-<meta property="og:image" content="https://oxfordosd.com/assets/bg-brand-blue.png">
-<meta property="og:image:alt" content="Oxford Soluções Digitais — Agência de Performance">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oxford Soluções Digitais — Tráfego Pago que Vende">
 <meta name="twitter:description" content="Método Blue Wave — o ecossistema de aceleração que já gerou R$10 milhões em faturamento para empresários brasileiros.">
-<meta name="twitter:image" content="https://oxfordosd.com/assets/bg-brand-blue.png">
-<meta name="twitter:image:alt" content="Oxford Soluções Digitais">
 
-<!-- Favicon / PWA -->
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="512x512" href="/assets/logo-oxford-mark-v2-white.png">
-<link rel="apple-touch-icon" href="/assets/logo-oxford-mark-on-blue.png">
+<!-- PWA -->
 <link rel="manifest" href="/site.webmanifest">
 
 <!-- Resource hints para fontes (não bloqueantes) -->
@@ -59,12 +50,6 @@
   "legalName":"Oxford Soluções Digitais",
   "alternateName":"Oxford",
   "url":"https://oxfordosd.com/",
-  "logo":{
-    "@type":"ImageObject",
-    "url":"https://oxfordosd.com/assets/logo-oxford-mark-on-blue.png",
-    "width":512,"height":512
-  },
-  "image":"https://oxfordosd.com/assets/bg-brand-blue.png",
   "description":"Agência brasileira de tráfego pago, performance e gestão de conteúdo para empresários. Método Blue Wave — ecossistema completo de aceleração comercial.",
   "identifier":{"@type":"PropertyValue","propertyID":"CNPJ","value":"58.364.658/0001-62"},
   "taxID":"58.364.658/0001-62",
@@ -97,7 +82,6 @@
   "@id":"https://oxfordosd.com/#service",
   "name":"Oxford Soluções Digitais",
   "url":"https://oxfordosd.com/",
-  "image":"https://oxfordosd.com/assets/bg-brand-blue.png",
   "priceRange":"$$",
   "description":"Gestão de tráfego pago, criativos, landing pages, social media, CRM e automações com IA. Método Blue Wave para empresários que querem escalar.",
   "areaServed":"Brasil",
@@ -192,7 +176,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;font-family:var(--font-sans);font-size:16px;line-height:1.5;color:var(--fg-1);background:var(--bg-page);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-img,svg{max-width:100%;height:auto;display:block}
+svg{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4,p{margin:0}
 button{font:inherit;cursor:pointer}
@@ -232,7 +216,6 @@ em.accent{font-style:italic;color:var(--oxford-terracotta);font-family:var(--fon
 
 /* Brand (footer) */
 .brand-word{font-family:var(--font-display);font-size:18px;color:var(--oxford-blue);letter-spacing:.01em}
-.foot-logo{width:40px;height:40px;border-radius:8px;object-fit:cover;flex-shrink:0}
 
 /* Section header shared */
 .sec-head{margin-bottom:56px}
@@ -290,12 +273,8 @@ em.accent{font-style:italic;color:var(--oxford-terracotta);font-family:var(--fon
 .method-close em{color:var(--oxford-terracotta);font-style:italic}
 .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:48px 0;text-align:left}
 .method-step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:32px;position:relative;overflow:hidden}
-.method-step-ic{width:80px;height:80px;margin-bottom:24px;position:relative;z-index:2}
 .method-step h3{color:#fff;font-family:var(--font-sans);font-size:1.2rem;margin:0 0 12px;position:relative;z-index:2}
 .method-step p{color:rgba(255,255,255,.75);font-size:.95rem;line-height:1.5;margin:0;position:relative;z-index:2}
-.comparison-container{margin-top:56px;position:relative;display:flex;justify-content:center}
-.comparison-img{max-width:800px;width:100%;height:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);opacity:0;transform:translateY(20px);transition:opacity .8s ease-out,transform .8s ease-out}
-.scroll-reveal-text.active .comparison-img{opacity:1;transform:translateY(0)}
 
 /* ============================================================
    SECTION 4 — SERVIÇOS
@@ -514,9 +493,6 @@ footer{padding:48px 0 32px;color:var(--fg-3);font-size:14px;background:var(--bg-
     <h2 class="reveal-h2">
       <span>A velha forma de fazer anúncios</span> <span>parou de funcionar.</span> <span>O mercado agora exige inteligência,</span> <span>automação e processos.</span> <span>É aqui que a</span> <span class="accent-reveal">Oxford</span> <span>entra.</span>
     </h2>
-    <div class="comparison-container">
-      <img src="assets/funnel-comparison.png" alt="Comparativo: Funil Tradicional vs Ecossistema Oxford" class="comparison-img" loading="lazy" width="800" height="450">
-    </div>
   </div>
 </section>
 
@@ -531,17 +507,14 @@ footer{padding:48px 0 32px;color:var(--fg-3);font-size:14px;background:var(--bg-
     
     <div class="method-grid">
       <article class="method-step">
-        <img src="assets/method-step-1.png" alt="Captação" class="method-step-ic" loading="lazy" width="80" height="80">
         <h3>Captação de Alta Intenção</h3>
         <p>Anúncios desenhados para encontrar o público certo e parar o scroll, combinando dados precisos com criativos magnéticos.</p>
       </article>
       <article class="method-step">
-        <img src="assets/method-step-2.png" alt="Nutrição" class="method-step-ic" loading="lazy" width="80" height="80">
         <h3>Nutrição e Engenharia de Oferta</h3>
         <p>Landing pages e automações que transformam curiosidade em desejo, educando o lead e eliminando objeções de compra.</p>
       </article>
       <article class="method-step">
-        <img src="assets/method-step-3.png" alt="CRM" class="method-step-ic" loading="lazy" width="80" height="80">
         <h3>CRM e Conversão B2B</h3>
         <p>Gestão e processos comerciais integrados para que nenhum lead caia no limbo e o seu time consiga fechar mais negócios.</p>
       </article>
@@ -860,7 +833,6 @@ footer{padding:48px 0 32px;color:var(--fg-3);font-size:14px;background:var(--bg-
 <footer role="contentinfo">
   <div class="wrap foot-inner">
     <div class="foot-brand">
-      <img src="/assets/logo-oxford.jpg" alt="Oxford Soluções Digitais" width="40" height="40" loading="lazy" decoding="async" class="foot-logo">
       <div class="brand-word">Oxford Soluções Digitais</div>
     </div>
     <div class="foot-meta">
