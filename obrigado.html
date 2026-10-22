@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#263fa3">
+<title>Falta só um passo — Oxford</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/prata.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WV3CXKBR');</script>
+<!-- End Google Tag Manager -->
+
+<style>
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:optional;src:url('/fonts/manrope.woff2') format('woff2')}
+@font-face{font-family:'Prata';font-style:normal;font-weight:400;font-display:optional;src:url('/fonts/prata.woff2') format('woff2')}
+:root{
+  --oxford-blue:#263fa3;--oxford-blue-50:#f2f4fb;--oxford-blue-900:#0b1538;--oxford-cream:#f7f4ee;
+  --oxford-terracotta:#d97757;--accent-on-blue:#ecab94;
+  --ink-950:#0a0d1a;--ink-700:#2d3556;--ink-600:#4a5378;--ink-200:#dee2ee;
+  --wa:#18744a;--wa-hover:#135c3b;
+  --font-display:'Prata','Times New Roman',Georgia,serif;
+  --font-sans:'Manrope',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--font-sans);line-height:1.6;color:var(--ink-950);background:var(--oxford-cream);-webkit-font-smoothing:antialiased}
+h1,h2,p,ol{margin:0}
+ol{padding:0;list-style:none}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--oxford-terracotta);outline-offset:3px;border-radius:4px}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+.top{background-color:var(--oxford-blue);background-image:repeating-linear-gradient(180deg,transparent 0 119px,rgba(255,255,255,.07) 119px 120px);color:#fff;padding:32px 0 clamp(72px,10vw,112px);text-align:center}
+.top .logo{display:block;width:150px;height:34px;margin:0 auto clamp(48px,8vw,80px)}
+.check{width:72px;height:72px;margin:0 auto 28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:var(--accent-on-blue);animation:pop .6s var(--ease-out) both}
+.check .ic{width:34px;height:34px;stroke-width:2}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-on-blue);margin-bottom:18px}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2rem,5vw,3.25rem);line-height:1.1;letter-spacing:-.02em;text-wrap:balance}
+.top p.sub{max-width:560px;margin:22px auto 36px;font-size:1.125rem;color:rgba(255,255,255,.86);text-wrap:pretty}
+.btn-wa{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--wa);color:#fff;font-weight:700;font-size:1.0625rem;text-decoration:none;padding:19px 30px;border-radius:8px;box-shadow:0 16px 34px -14px rgba(0,0,0,.45);transition:background-color .18s var(--ease-out),transform .18s var(--ease-out)}
+.btn-wa:hover{background:var(--wa-hover)}
+.btn-wa:active{transform:translateY(1px)}
+.btn-wa svg{width:22px;height:22px;fill:currentColor}
+.micro{margin-top:16px;font-size:.875rem;color:rgba(255,255,255,.72)}
+
+.body{padding:clamp(64px,9vw,104px) 0}
+.card{background:#fff;border:1px solid var(--ink-200);border-radius:16px;padding:clamp(28px,4vw,44px)}
+.card+.card{margin-top:20px}
+h2{font-family:var(--font-display);font-weight:400;font-size:1.625rem;line-height:1.2;margin-bottom:22px}
+.agenda{display:grid;gap:16px;counter-reset:a}
+.agenda li{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start;color:var(--ink-700)}
+.agenda li::before{counter-increment:a;content:counter(a);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--oxford-blue);color:var(--oxford-blue);font-family:var(--font-display)}
+.agenda strong{display:block;color:var(--ink-950)}
+.prep li{display:flex;gap:12px;align-items:flex-start;color:var(--ink-700)}
+.prep{display:grid;gap:12px}
+.prep .ic{color:var(--oxford-blue);margin-top:3px}
+.back{display:block;text-align:center;margin-top:36px;font-size:.9375rem;font-weight:600;color:var(--ink-600)}
+.back:hover{color:var(--oxford-blue)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WV3CXKBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<main>
+  <section class="top" aria-labelledby="title">
+    <div class="wrap">
+      <img class="logo" src="/img/logo-oxford-branco-180.webp" srcset="/img/logo-oxford-branco-180.webp 180w, /img/logo-oxford-branco-360.webp 360w" sizes="150px" width="150" height="34" alt="Oxford Soluções Digitais">
+      <div class="check" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <p class="eyebrow">Respostas recebidas</p>
+      <h1 id="title"><span data-greeting>Falta só um passo.</span></h1>
+      <p class="sub">Escolha o melhor horário para a sua sessão estratégica com o nosso time pelo WhatsApp. Leva menos de um minuto.</p>
+      <a class="btn-wa" href="https://wa.me/5521964791690?text=Ol%C3%A1!%20Acabei%20de%20preencher%20o%20formul%C3%A1rio%20da%20Sess%C3%A3o%20Estrat%C3%A9gica%20no%20site%20da%20Oxford%20e%20quero%20agendar%20o%20meu%20hor%C3%A1rio." data-wa target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Agendar pelo WhatsApp
+      </a>
+      <p class="micro">Você fala direto com o time da Oxford.</p>
+    </div>
+  </section>
+
+  <section class="body" aria-label="Como será a sua sessão">
+    <div class="wrap">
+      <div class="card">
+        <h2>O que vamos ver nos 20 minutos</h2>
+        <ol class="agenda">
+          <li><span><strong>O seu objetivo</strong>Onde a sua loja quer chegar e em quanto tempo.</span></li>
+          <li><span><strong>Diagnóstico</strong>Quanto a loja vende hoje, como foi investir em marketing até aqui e o que está travando o crescimento.</span></li>
+          <li><span><strong>Cases</strong>Como outros e-commerces saíram de onde você está hoje.</span></li>
+          <li><span><strong>O plano certo</strong>O plano de crescimento para o momento da sua loja.</span></li>
+          <li><span><strong>Próximos passos</strong>O que fazer para colocar o plano em prática.</span></li>
+        </ol>
+      </div>
+      <div class="card">
+        <h2>Para aproveitar melhor a sessão</h2>
+        <ul class="prep" style="padding:0;margin:0;list-style:none">
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tenha em mãos o faturamento dos últimos três meses.</li>
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Saiba quanto investe hoje em anúncios e em quais plataformas.</li>
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Pense nos produtos que mais vendem e nos que dão mais margem.</li>
+        </ul>
+      </div>
+      <a class="back" href="/">Voltar para o site</a>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  // Personaliza com o primeiro nome e leva as respostas do formulário na mensagem do WhatsApp
+  let lead = null;
+  try { lead = JSON.parse(sessionStorage.getItem('oxf_lead') || 'null'); } catch (e) {}
+  if (lead && lead.nome) document.querySelector('[data-greeting]').textContent = `${lead.nome}, falta só um passo.`;
+  if (lead && lead.wa) document.querySelector('[data-wa]').href = lead.wa;
+  (window.dataLayer = window.dataLayer || []).push({ event: 'lp_thankyou_view' });
+  document.querySelector('[data-wa]').addEventListener('click', () => {
+    window.dataLayer.push({ event: 'lp_whatsapp_click', cta_location: 'obrigado' });
+  });
+})();
+</script>
+</body>
+</html>

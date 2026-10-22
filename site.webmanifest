@@ -1,7 +1,7 @@
 {
   "name": "Oxford Soluções Digitais",
   "short_name": "Oxford",
-  "description": "Agência de tráfego pago e performance para empresários. Método Blue Wave.",
+  "description": "Growth para e-commerces. Vença a barreira dos R$100k por mês em até 6 meses.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#263fa3",
@@ -9,5 +9,9 @@
   "lang": "pt-BR",
   "dir": "ltr",
   "scope": "/",
-  "icons": []
+  "icons": [
+    { "src": "/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }

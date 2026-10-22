@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /obrigado
 
 # Crawlers de IA explicitamente permitidos
 User-agent: GPTBot
