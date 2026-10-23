@@ -118,10 +118,16 @@
 <link rel="dns-prefetch" href="https://connect.facebook.net">
 
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];
+function load(){if(load.done)return;load.done=1;w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+/* Celular: o GTM (Pixel, CAPI, GA4, Ads) só carrega na primeira interação, para não competir com o LCP. Desktop: carrega na hora. */
+if(!w.matchMedia||!w.matchMedia('(max-width:1023px)').matches){load();return;}
+var ev=['scroll','touchstart','pointerdown','keydown','click'];
+function go(){ev.forEach(function(e){w.removeEventListener(e,go,true)});load();}
+ev.forEach(function(e){w.addEventListener(e,go,{capture:true,passive:true})});
 })(window,document,'script','dataLayer','GTM-WV3CXKBR');</script>
 <!-- End Google Tag Manager -->
 
