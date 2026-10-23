@@ -43,6 +43,7 @@
 <!-- Fontes self-hosted: só as duas usadas acima da dobra são pré-carregadas -->
 <link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/prata.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/img/prova-vendas-30d-480.webp" imagesrcset="/img/prova-vendas-30d-480.webp 480w, /img/prova-vendas-30d-785.webp 785w" imagesizes="(min-width: 1024px) 440px, (min-width: 600px) 560px, calc(100vw - 40px)" fetchpriority="high">
 
 <!-- JSON-LD: Organization -->
 <script type="application/ld+json">
@@ -129,12 +130,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    Fontes self-hosted (latin subset, cobre pt-BR)
    ============================================================= */
 @font-face{
-  font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:optional;
+  font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;
   src:url('/fonts/manrope.woff2') format('woff2');
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face{
-  font-family:'Prata';font-style:normal;font-weight:400;font-display:optional;
+  font-family:'Prata';font-style:normal;font-weight:400;font-display:swap;
   src:url('/fonts/prata.woff2') format('woff2');
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
@@ -238,15 +239,15 @@ section{position:relative}
 /* =============================================================
    Header
    ============================================================= */
-.site-header{position:fixed;inset:0 0 auto;z-index:50;height:var(--header-h);transition:background-color .3s var(--ease-out),box-shadow .3s var(--ease-out),backdrop-filter .3s}
+.site-header{position:fixed;inset:0 0 auto;z-index:50;height:var(--header-h);transition:background-color .3s var(--ease-out),box-shadow .3s var(--ease-out)}
 .header-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{position:relative;display:block;width:150px;height:34px}
 .brand img{position:absolute;inset:0;width:150px;height:34px;transition:opacity .3s var(--ease-out)}
 .brand .logo-blue{opacity:0}
 .btn-header{font-size:.875rem;padding:11px 18px;background:#fff;color:var(--oxford-blue)}
 .btn-header:hover{background:var(--oxford-blue-50)}
-.site-header.is-scrolled{background:rgba(38,63,163,.97);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);box-shadow:0 1px 0 rgba(255,255,255,.1)}
-.site-header.is-solid{background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);box-shadow:0 1px 0 rgba(20,25,43,.08)}
+.site-header.is-scrolled{background:rgba(38,63,163,.97);box-shadow:0 1px 0 rgba(255,255,255,.1)}
+.site-header.is-solid{background:rgba(255,255,255,.96);box-shadow:0 1px 0 rgba(20,25,43,.08)}
 .site-header.is-solid .logo-white{opacity:0}
 .site-header.is-solid .logo-blue{opacity:1}
 .site-header.is-solid .btn-header{background:var(--oxford-blue);color:#fff}
@@ -281,20 +282,19 @@ section{position:relative}
 
 /* Visual de provas no hero */
 .hero-visual{position:relative;height:500px}
-.hv-card{position:absolute;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;animation:hv-in 1s var(--ease-out) both}
+.hv-card{position:absolute;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden}
 .hv-card img{width:100%;height:auto}
 .hv-card figcaption,.hv-chip{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;background:var(--oxford-blue-900);color:#fff;font-size:.75rem;font-weight:600;letter-spacing:.02em;padding:7px 11px;border-radius:var(--radius-full)}
 .hv-card figcaption::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--oxford-terracotta)}
-.hv-card--a{top:0;right:0;width:96%;padding-bottom:44px;animation-delay:.1s}
-.hv-card--b{top:128px;left:-6%;width:92%;padding-bottom:48px;animation-delay:.2s}
-.hv-card--c{right:-4%;bottom:0;width:224px;padding:20px 22px;background:var(--oxford-blue-900);color:#fff;border:1px solid rgba(255,255,255,.12);animation-delay:.35s}
+.hv-card--a{top:0;right:0;width:96%;padding-bottom:44px}
+.hv-card--b{top:128px;left:-6%;width:92%;padding-bottom:48px}
+.hv-card--c{right:-4%;bottom:0;width:224px;padding:20px 22px;background:var(--oxford-blue-900);color:#fff;border:1px solid rgba(255,255,255,.12)}
 .hv-metric-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.7);font-weight:600}
 .hv-metric-num{font-family:var(--font-display);font-size:3rem;line-height:1.05;letter-spacing:-.02em;color:var(--oxford-terracotta);margin:6px 0 8px}
 .hv-metric-note{font-size:.8125rem;line-height:1.45;color:rgba(255,255,255,.78)}
-@keyframes hv-in{from{transform:translateY(28px) scale(.98)}to{transform:none}}
 @supports (animation-timeline:scroll()){
   @media (prefers-reduced-motion:no-preference) and (min-width:1024px){
-    .hv-card{animation:hv-in 1s var(--ease-out) both,hv-par linear both;animation-timeline:auto,scroll(root);animation-range:normal,0 100vh}
+    .hv-card{animation:hv-par linear both;animation-timeline:scroll(root);animation-range:0 100vh}
     .hv-card--a{--y:-36px}.hv-card--b{--y:-80px}.hv-card--c{--y:-140px}
     @keyframes hv-par{to{translate:0 var(--y)}}
   }
@@ -617,7 +617,7 @@ html:not(.js) .step-nav{display:none}
   .final-inner{border-radius:var(--radius-lg)}
   .final-inner .btn{width:100%}
   .foot-legal{flex-direction:column}
-  .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 -1px 0 rgba(20,25,43,.08);transform:translateY(110%);transition:transform .35s var(--ease-out)}
+  .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);box-shadow:0 -1px 0 rgba(20,25,43,.08);transform:translateY(110%);transition:transform .35s var(--ease-out)}
   .sticky-cta.is-on{transform:none}
   .sticky-cta .btn{width:100%}
 }
@@ -722,11 +722,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-visual">
       <figure class="hv-card hv-card--a">
-        <img src="/img/prova-acumulado-669.webp" width="669" height="140" alt="Painel de vendas de um cliente da Oxford no acumulado anual: R$ 3.145.906,50 em vendas (+625%), 15.528 pedidos (+597%) e 981.745 sessões (+484%)." decoding="async">
+        <img src="/img/prova-acumulado-669.webp" width="669" height="140" fetchpriority="high" alt="Painel de vendas de um cliente da Oxford no acumulado anual: R$ 3.145.906,50 em vendas (+625%), 15.528 pedidos (+597%) e 981.745 sessões (+484%)." decoding="async">
         <figcaption>Acumulado anual</figcaption>
       </figure>
       <figure class="hv-card hv-card--b">
-        <img src="/img/prova-vendas-30d-480.webp" srcset="/img/prova-vendas-30d-480.webp 480w, /img/prova-vendas-30d-785.webp 785w" sizes="(min-width: 1024px) 440px, (min-width: 600px) 560px, calc(100vw - 40px)" width="785" height="500" alt="Gráfico de vendas de um cliente da Oxford nos últimos 30 dias: R$ 340.910 em vendas (+23%) e 1,47 mil pedidos (+15%)." fetchpriority="high" decoding="async">
+        <img src="/img/prova-vendas-30d-480.webp" srcset="/img/prova-vendas-30d-480.webp 480w, /img/prova-vendas-30d-785.webp 785w" sizes="(min-width: 1024px) 440px, (min-width: 600px) 560px, calc(100vw - 40px)" width="785" height="500" alt="Gráfico de vendas de um cliente da Oxford nos últimos 30 dias: R$ 340.910 em vendas (+23%) e 1,47 mil pedidos (+15%)." fetchpriority="high" fetchpriority="high">
         <figcaption>Últimos 30 dias</figcaption>
       </figure>
       <div class="hv-card hv-card--c">
