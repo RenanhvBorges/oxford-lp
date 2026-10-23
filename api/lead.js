@@ -34,6 +34,16 @@ const TAG_ORIGEM = 'LP Sessão Estratégica';
 const TAG_QUALIFICADO = 'Lead qualificado';
 const TAG_NAO_QUALIFICADO = 'Lead não qualificado';
 
+// O CRM guarda as tags do contato pelo nome, mas o menu Contatos → Tags e o seletor de
+// gatilhos das automações leem o catálogo (tabela de tags). Por isso cada tag usada aqui
+// também é registrada no catálogo, com a cor abaixo.
+const TAG_COLORS = {
+  [TAG_ORIGEM]: '#263fa3',
+  [TAG_QUALIFICADO]: '#1f8f5a',
+  [TAG_NAO_QUALIFICADO]: '#6b7599',
+};
+const knownTags = new Set(); // evita repetir o registro enquanto a instância está quente
+
 const ATTRIBUTION_KEYS = [
   'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
   'fbclid', 'gclid', 'gbraid', 'wbraid', 'ttclid', 'landing_page', 'referrer',
@@ -67,13 +77,16 @@ module.exports = async function handler(req, res) {
   }
   const crm = crmClient(CRM_API_URL.replace(/\/+$/, ''), CRM_API_KEY);
 
+  const tags = [TAG_ORIGEM, lead.qualified ? TAG_QUALIFICADO : TAG_NAO_QUALIFICADO];
+  await ensureTagsInCatalog(crm, tags);
+
   let contact;
   try {
     contact = await crm('POST', '/api/v1/contacts?upsert=email', {
       name: lead.nome,
       email: lead.email,
       phone: lead.phone,
-      tags: [TAG_ORIGEM, lead.qualified ? TAG_QUALIFICADO : TAG_NAO_QUALIFICADO],
+      tags,
       custom_fields: lead.customFields,
     });
   } catch (err) {
@@ -128,6 +141,20 @@ function normalize(body) {
   for (const key of Object.keys(customFields)) if (!customFields[key]) delete customFields[key];
 
   return { nome, email, phone: '+55' + phone, qualified, customFields };
+}
+
+// Registra as tags no catálogo do CRM. Nome repetido (409) significa que já existe, então
+// conta como sucesso. Qualquer outra falha só vai para o log: o lead nunca depende disso.
+async function ensureTagsInCatalog(crm, tags) {
+  await Promise.all(tags.filter((tag) => !knownTags.has(tag)).map(async (tag) => {
+    try {
+      await crm('POST', '/api/v1/tags', { name: tag, color: TAG_COLORS[tag] });
+      knownTags.add(tag);
+    } catch (err) {
+      if (/→ 409/.test(err.message)) knownTags.add(tag);
+      else console.error('[lead] tag não registrada no catálogo:', tag, err.message);
+    }
+  }));
 }
 
 async function openDealIfNeeded(crm, contactId, lead, pipelineId, stageId) {
