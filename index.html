@@ -417,14 +417,18 @@ section{position:relative}
 .compare{background:var(--oxford-cream);padding:var(--section-y) 0}
 .cmp{width:100%;max-width:1000px;margin:0 auto;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--border-1);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)}
 .cmp th,.cmp td{padding:22px 28px;text-align:left;vertical-align:top;font-size:.9688rem;line-height:1.55}
-.cmp thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.16em;font-weight:600;color:var(--fg-3);background:var(--ink-50);border-bottom:1px solid var(--border-1)}
-.cmp thead th:last-child{color:#fff;background:var(--oxford-blue)}
+.cmp thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.16em;font-weight:700;border-bottom:1px solid var(--border-1)}
+.cmp thead th:first-child{color:#8f2a23;background:#fbe4e2;border-bottom-color:#f1c9c4}
+.cmp thead th:last-child{color:#fff;background:#18744a;border-bottom-color:#18744a}
+.cmp thead .ic{width:18px;height:18px;margin-top:0;align-self:center;stroke-width:2}
 .cmp tbody tr+tr td{border-top:1px solid var(--border-1)}
-.cmp td:first-child{color:var(--fg-3);width:50%}
-.cmp td:last-child{color:var(--fg-1);font-weight:600;background:var(--oxford-blue-50)}
+.cmp td:first-child{width:50%;color:var(--ink-700);background:#fdf3f2}
+.cmp tbody tr+tr td:first-child{border-top-color:#f6dcd8}
+.cmp td:last-child{color:var(--fg-1);font-weight:600;background:#eaf6f0}
+.cmp tbody tr+tr td:last-child{border-top-color:#cfe8da}
 .cmp .cell{display:flex;gap:12px;align-items:flex-start}
 .cmp .ic{width:18px;height:18px;margin-top:3px}
-.cmp td:first-child .ic{color:var(--ink-400)}
+.cmp td:first-child .ic{color:var(--danger)}
 .cmp td:last-child .ic{color:var(--success);stroke-width:2}
 
 /* =============================================================
@@ -603,6 +607,7 @@ html:not(.js) .step-nav{display:none}
   .cmp{table-layout:fixed}
   .cmp th,.cmp td{padding:14px 12px;font-size:.8438rem;line-height:1.45;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
   .cmp thead th{padding:12px;font-size:.6875rem;letter-spacing:.08em;line-height:1.3}
+  .cmp thead .ic{width:15px;height:15px}
   .cmp td:first-child{width:auto}
   .cmp td:last-child{font-weight:600}
   .cmp .cell{gap:7px}
@@ -638,7 +643,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trend-down" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></symbol>
+  <symbol id="i-trend-up" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+  <symbol id="i-arrow-down-right" viewBox="0 0 24 24"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></symbol>
+  <symbol id="i-chart-line" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
@@ -936,27 +946,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </header>
     <table class="cmp" data-reveal>
       <caption class="sr-only">Comparação entre a situação atual da sua loja e a sua loja com a Oxford</caption>
-      <thead><tr><th scope="col">Sua loja hoje</th><th scope="col">Sua loja com a Oxford</th></tr></thead>
+      <thead><tr><th scope="col"><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-trend-down"/></svg>Sua loja hoje</span></th><th scope="col"><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-trend-up"/></svg>Sua loja com a Oxford</span></th></tr></thead>
       <tbody>
         <tr>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Você aumenta a verba, mas o faturamento não acompanha.</span></td>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Cada real a mais investido tem histórico de retorno.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-trend-down"/></svg>Você aumenta a verba, mas o faturamento não acompanha.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-trend-up"/></svg>Cada real a mais investido tem histórico de retorno.</span></td>
         </tr>
         <tr>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Os relatórios falam de alcance e curtidas, não de faturamento.</span></td>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Relatórios em linguagem de negócio: faturamento, custo por venda e margem.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-x-circle"/></svg>Os relatórios falam de alcance e curtidas, não de faturamento.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-dollar"/></svg>Relatórios em linguagem de negócio: faturamento, custo por venda e margem.</span></td>
         </tr>
         <tr>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Dias sem saber o que está acontecendo com a sua conta.</span></td>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Você sabe quando e como vai ser atualizado.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-arrow-down-right"/></svg>Dias sem saber o que está acontecendo com a sua conta.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-chart-line"/></svg>Você sabe quando e como vai ser atualizado.</span></td>
         </tr>
         <tr>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Quem abandona o carrinho vai embora sem nova tentativa.</span></td>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Quem quase comprou volta a ver a sua loja, com o menor custo por venda da operação.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-trend-down"/></svg>Quem abandona o carrinho vai embora sem nova tentativa.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-dollar"/></svg>Quem quase comprou volta a ver a sua loja, com o menor custo por venda da operação.</span></td>
         </tr>
         <tr>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>O crescimento depende do achismo do mês.</span></td>
-          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Você planeja o crescimento com previsibilidade — e com um time do seu lado.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-x-circle"/></svg>O crescimento depende do achismo do mês.</span></td>
+          <td><span class="cell"><svg class="ic" aria-hidden="true"><use href="#i-trend-up"/></svg>Você planeja o crescimento com previsibilidade — e com um time do seu lado.</span></td>
         </tr>
       </tbody>
     </table>
