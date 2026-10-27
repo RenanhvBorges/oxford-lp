@@ -4,6 +4,7 @@
   "description": "Site estático da Oxford (landing page + blog)",
   "scripts": {
     "build": "node scripts/build-blog.js",
+    "preview": "BLOG_DRAFTS=1 node scripts/build-blog.js && npx --yes serve . -l 3000",
     "dev": "node scripts/build-blog.js && npx --yes serve . -l 3000"
   },
   "dependencies": {

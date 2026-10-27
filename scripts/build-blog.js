@@ -15,6 +15,7 @@
 //   cta          opcional, frase do CTA específica do tema (vai acima do bloco padrão)
 //   tema         opcional, número do tema no _guia-pautas.md (controle do que já foi escrito)
 //   draft        true = não publica
+// Para ver rascunhos localmente: npm run preview (BLOG_DRAFTS=1).
 // Arquivos que começam com "_" são ignorados (ex.: _modelo.md).
 
 const fs = require('fs');
@@ -206,7 +207,7 @@ function build() {
   fs.mkdirSync(path.join(OUT, 'pagina'), { recursive: true });
 
   const files = fs.existsSync(SRC) ? fs.readdirSync(SRC).filter((f) => f.endsWith('.md') && !f.startsWith('_')) : [];
-  const posts = files.map((f) => ({ file: f, ...parse(f) })).filter((p) => p.meta.draft !== 'true');
+  const posts = files.map((f) => ({ file: f, ...parse(f) })).filter((p) => p.meta.draft !== 'true' || process.env.BLOG_DRAFTS === '1');
 
   const seen = new Set();
   for (const p of posts) {
