@@ -6,7 +6,6 @@ category: Black Friday
 author: Equipe Oxford
 tema: 1
 cta: Faltam poucas semanas para a Black Friday. Na Sessão Estratégica gratuita de 20 minutos, a Oxford mostra onde a sua loja perde vendas e o plano para chegar preparada.
-draft: true
 ---
 
 A Black Friday 2026 cai em **27 de novembro**, e ela se ganha antes do dia. Quem chega sem ter planejado margem, estoque e tráfego costuma vender mais e lucrar menos. Este checklist divide os próximos 30 dias em quatro semanas, com o que precisa estar pronto em cada uma.
