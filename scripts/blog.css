@@ -52,3 +52,5 @@ h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2rem,5vw,2.75
 .crumbs{font-size:.875rem;margin:0 0 24px}
 footer{border-top:1px solid var(--ink-200);padding:28px 0;font-size:.8125rem;color:var(--ink-600)}
 footer nav{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:10px}
+.cta-box .disclaimer{font-size:.8125rem;opacity:.85;margin:0}
+.cta-box .btn{background:var(--cta)}

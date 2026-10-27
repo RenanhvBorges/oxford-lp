@@ -12,6 +12,8 @@
 //   category     opcional
 //   author       opcional (padrão: Oxford Soluções Digitais)
 //   image        opcional, caminho a partir de /blog/img/ ou URL absoluta
+//   cta          opcional, frase do CTA específica do tema (vai acima do bloco padrão)
+//   tema         opcional, número do tema no _guia-pautas.md (controle do que já foi escrito)
 //   draft        true = não publica
 // Arquivos que começam com "_" são ignorados (ex.: _modelo.md).
 
@@ -99,10 +101,13 @@ const foot = `
 </html>
 `;
 
-const ctaBox = `<aside class="cta-box">
-  <h2>Quer ver onde está o teto da sua loja?</h2>
-  <p>Na Sessão Estratégica gratuita, você recebe o diagnóstico e o plano para passar dele.</p>
-  <a href="/#sessao" class="btn" data-cta="blog-post">Quero o diagnóstico da minha loja</a>
+const ctaBox = (custom) => `<aside class="cta-box">
+  ${custom ? `<p><strong>${esc(custom)}</strong></p>` : ''}
+  <h2>Descubra o que está segurando a sua loja.</h2>
+  <p>Em 20 minutos, online e sem compromisso, você vê o diagnóstico da sua operação, cases de e-commerces que saíram de onde você está e o plano de crescimento para o momento da sua loja.</p>
+  <p>Atendemos apenas 5 novos e-commerces por mês.</p>
+  <p><a href="/#sessao" class="btn" data-cta="blog-post">Quero meu diagnóstico gratuito</a></p>
+  <p class="disclaimer"><em>Resultados de clientes variam conforme produto, margem, estoque e investimento.</em></p>
 </aside>`;
 
 function card({ meta }) {
@@ -161,7 +166,7 @@ ${meta.updated ? `<meta property="article:modified_time" content="${meta.updated
     ${meta.image ? `<img class="post-cover" src="${imgUrl(meta.image)}" alt="" width="1200" height="630">` : ''}
     ${html}
   </article>
-  ${ctaBox}
+  ${ctaBox(meta.cta)}
 </main>` + foot;
 }
 

@@ -6,6 +6,8 @@ updated:
 category: Tráfego pago
 author: Oxford Soluções Digitais
 image: nome-da-imagem.webp
+tema: 1
+cta: Frase de CTA do tema, copiada do guia.
 draft: true
 ---
 
