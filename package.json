@@ -1,0 +1,13 @@
+{
+  "name": "oxford-lp",
+  "private": true,
+  "description": "Site estático da Oxford (landing page + blog)",
+  "scripts": {
+    "build": "node scripts/build-blog.js",
+    "dev": "node scripts/build-blog.js && npx --yes serve . -l 3000"
+  },
+  "dependencies": {
+    "marked": "12.0.2"
+  },
+  "engines": { "node": ">=18" }
+}

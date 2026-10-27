@@ -7,6 +7,8 @@ Landing page estática da Oxford (Growth para e-commerces), hospedada na Vercel.
 | `index.html` | Página principal. CSS e JS inline, sem framework e sem build. |
 | `obrigado.html` | Página pós-formulário, com botão para o WhatsApp (21) 96479-1690. Fica fora dos buscadores (`noindex`). |
 | `privacidade.html` | Política de privacidade (LGPD) linkada no formulário. |
+| `content/blog/*.md` | Artigos do blog em Markdown (fonte). `_modelo.md` mostra o front matter. Imagens em `content/blog/img/`. |
+| `scripts/build-blog.js`, `scripts/blog.css` | Geram `blog/` (listagem, posts, `feed.xml`) e regeneram `sitemap.xml`. Rodam no deploy da Vercel (`npm run build`). `blog/` não é versionado. |
 | `api/lead.js` | Função da Vercel que grava o lead no CRM da Oxford. |
 | `img/` | Imagens em webp, ícones e imagem de compartilhamento (`og-oxford.jpg`). |
 | `llms.txt`, `robots.txt`, `sitemap.xml` | SEO e GEO (buscadores e assistentes de IA). |
