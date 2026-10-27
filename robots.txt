@@ -53,7 +53,7 @@ User-agent: cohere-ai
 Allow: /
 
 # GEO: índice de conteúdo estruturado para agentes de IA
-# https://oxfordosd.com/llms.txt
+# https://www.oxfordmkt.com/llms.txt
 
-Sitemap: https://oxfordosd.com/sitemap.xml
-Host: https://oxfordosd.com
+Sitemap: https://www.oxfordmkt.com/sitemap.xml
+Host: https://www.oxfordmkt.com
