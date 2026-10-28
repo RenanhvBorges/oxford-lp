@@ -1341,14 +1341,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const attribution = (() => {
     const p = new URLSearchParams(location.search);
     const fresh = {};
-    TRACK_KEYS.forEach((k) => { const v = p.get(k); if (v) fresh[k] = v.slice(0, 200); });
+    TRACK_KEYS.forEach((k) => { const v = p.get(k); if (v) fresh[k] = v.slice(0, 500); });
     const kept = attrStore.get();
     if (!Object.keys(fresh).length && kept) return kept;
+    // Momento do clique no anúncio da Meta: compõe o fbc quando o pixel não gravou o cookie _fbc
+    if (fresh.fbclid) fresh.fbclid_at = Date.now();
     fresh.landing_page = (location.origin + location.pathname + location.search).slice(0, 500);
     fresh.referrer = d.referrer.slice(0, 300);
     attrStore.set(fresh);
     return fresh;
   })();
+
+  /* Identificadores da Meta para a API de Conversões: _fbp e _fbc são gravados pelo pixel.
+     Sem _fbc (pixel bloqueado ou ainda não carregado), ou com um _fbc de um clique anterior,
+     monta o fbc a partir do fbclid guardado, no formato fb.1.<momento do clique em ms>.<fbclid>. */
+  const cookie = (name) => {
+    const m = d.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    if (!m) return '';
+    try { return decodeURIComponent(m[1]); } catch (e) { return m[1]; }
+  };
+  const metaIds = () => {
+    const ids = { fbp: cookie('_fbp'), fbc: cookie('_fbc') };
+    if (attribution.fbclid && !ids.fbc.endsWith('.' + attribution.fbclid)) {
+      ids.fbc = 'fb.1.' + (attribution.fbclid_at || Date.now()) + '.' + attribution.fbclid;
+    }
+    return ids;
+  };
 
   /* Header: transparente sobre o hero, sólido depois */
   const header = d.querySelector('[data-header]');
@@ -1615,7 +1633,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const payload = Object.assign({}, answers, {
       nome, email, whatsapp: phone,
       website: form.elements.website.value,
-      attribution, page: location.origin + location.pathname, event_id: eventId
+      attribution: Object.assign({}, attribution, metaIds()),
+      page: location.origin + location.pathname, event_id: eventId
     });
 
     submitBtn.disabled = true;

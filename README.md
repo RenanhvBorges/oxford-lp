@@ -29,7 +29,8 @@ Configure na Vercel (Settings → Environment Variables):
 O que chega no CRM:
 
 - **Tags:** `LP Sessão Estratégica` + `Lead qualificado` ou `Lead não qualificado`.
-- **Campos personalizados** (crie em Contatos → Campos, com estas chaves, para aparecerem na ficha): `lp_dificuldade`, `lp_prioridade`, `lp_investimento`, `lp_qualificado`, `lp_origem`, `lp_data_envio`, `lp_pagina`, `lp_event_id`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `fbclid`, `gclid`, `gbraid`, `wbraid`, `ttclid`, `landing_page`, `referrer`.
+- **Campos personalizados** (crie em Contatos → Campos, com estas chaves, para aparecerem na ficha): `lp_dificuldade`, `lp_prioridade`, `lp_investimento`, `lp_qualificado`, `lp_origem`, `lp_data_envio`, `lp_pagina`, `lp_event_id`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `fbclid`, `gclid`, `gbraid`, `wbraid`, `ttclid`, `fbc`, `fbp`, `landing_page`, `referrer`.
+- **Identificadores para conversões offline:** `gclid`/`gbraid`/`wbraid` (Google Ads), `fbc` e `fbp` (Meta, lidos dos cookies `_fbc` e `_fbp` do pixel; sem `_fbc`, o `fbc` é montado a partir do `fbclid` e do momento do clique) e `lp_event_id`, o mesmo `event_id` do `generate_lead` no dataLayer.
 
 **Lead qualificado** = marcou uma dificuldade real, quer resolver agora ou em até 3 meses, e prevê investir a partir de R$5.000/mês em marketing.
 
