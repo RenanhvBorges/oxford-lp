@@ -46,8 +46,11 @@ const knownTags = new Set(); // evita repetir o registro enquanto a instância e
 
 const ATTRIBUTION_KEYS = [
   'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
-  'fbclid', 'gclid', 'gbraid', 'wbraid', 'ttclid', 'landing_page', 'referrer',
+  'fbclid', 'gclid', 'gbraid', 'wbraid', 'ttclid', 'fbc', 'fbp', 'landing_page', 'referrer',
 ];
+
+// Formato dos identificadores da Meta (cookies _fbc e _fbp): fb.<subdomínio>.<timestamp ms>.<valor>
+const META_ID_RE = { fbc: /^fb\.\d\.\d{10,13}\.\S+$/, fbp: /^fb\.\d\.\d{10,13}\.\d+$/ };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const CRM_TIMEOUT_MS = 8000;
@@ -138,6 +141,9 @@ function normalize(body) {
     lp_event_id: clean(body.event_id, 64),
   };
   for (const key of ATTRIBUTION_KEYS) customFields[key] = clean(attribution[key], 500);
+  for (const key of Object.keys(META_ID_RE)) {
+    if (!META_ID_RE[key].test(customFields[key])) customFields[key] = '';
+  }
   for (const key of Object.keys(customFields)) if (!customFields[key]) delete customFields[key];
 
   return { nome, email, phone: '+55' + phone, qualified, customFields };
