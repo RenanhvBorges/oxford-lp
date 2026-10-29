@@ -8,9 +8,15 @@
   </url>
   <url>
     <loc>https://www.oxfordmkt.com/blog</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.oxfordmkt.com/blog/roas-meta-nao-bate-com-faturamento</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.oxfordmkt.com/blog/ecommerce-trava-antes-dos-100k</loc>
