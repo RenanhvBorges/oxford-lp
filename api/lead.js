@@ -1,5 +1,6 @@
-// Recebe o formulário da sessão estratégica e grava o lead no CRM da Oxford
-// (POST /api/v1/contacts?upsert=email, que atualiza o contato se o e-mail já existir).
+// Recebe o formulário da sessão estratégica, classifica o lead (MQL: qualificado ou não) e o
+// grava no CRM da Oxford (POST /api/v1/contacts?upsert=email, que atualiza o contato se o
+// e-mail já existir). A resposta devolve { ok, qualified }, que o front usa no dataLayer.
 //
 // Variáveis de ambiente (Vercel → Settings → Environment Variables):
 //   CRM_API_URL      URL base do CRM, sem barra no fim (ex.: https://crm.oxfordosd.com)
@@ -21,14 +22,21 @@ const LABELS = {
     indefinido: 'Sei que preciso resolver, mas ainda não defini quando',
     conhecendo: 'Estou apenas conhecendo opções, sem intenção de mudar por enquanto',
   },
-  investimento: {
-    ate5k: 'Menos de R$5.000',
-    '5a10k': 'De R$5.000 a R$9.999',
-    '10a20k': 'De R$10.000 a R$19.999',
-    '20kmais': 'R$20.000 ou mais',
-    indefinido: 'Ainda não defini um orçamento',
+  faturamento: {
+    ate20k: 'Menos de R$20.000',
+    '20a40k': 'De R$20.000 a R$39.999',
+    '40a70k': 'De R$40.000 a R$69.999',
+    '70a100k': 'De R$70.000 a R$99.999',
+    '100kmais': 'R$100.000 ou mais',
   },
 };
+
+// Regra de MQL (versão registrada em lp_regra_versao): dor + urgência + faturamento mínimo.
+// Só entra o que o lead declara no formulário; UTM e origem não influenciam a classificação,
+// para que a taxa de qualificados por campanha meça a qualidade do público que ela traz.
+const REGRA_VERSAO = 'v2';
+const URGENTES = ['agora', '3meses'];
+const FATURAMENTO_QUALIFICA = ['40a70k', '70a100k', '100kmais']; // a partir de R$40 mil/mês
 
 const TAG_ORIGEM = 'LP Sessão Estratégica';
 const TAG_QUALIFICADO = 'Lead qualificado';
@@ -51,6 +59,10 @@ const ATTRIBUTION_KEYS = [
 
 // Formato dos identificadores da Meta (cookies _fbc e _fbp): fb.<subdomínio>.<timestamp ms>.<valor>
 const META_ID_RE = { fbc: /^fb\.\d\.\d{10,13}\.\S+$/, fbp: /^fb\.\d\.\d{10,13}\.\d+$/ };
+
+// Site (com ou sem http, www ou caminho, ex.: instagram.com/sualoja) ou @ do Instagram
+const STORE_HANDLE_RE = /^@[A-Za-z0-9._]{2,30}$/;
+const STORE_DOMAIN_RE = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?([/?#]\S*)?$/i;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const CRM_TIMEOUT_MS = 8000;
@@ -80,7 +92,10 @@ module.exports = async function handler(req, res) {
   }
   const crm = crmClient(CRM_API_URL.replace(/\/+$/, ''), CRM_API_KEY);
 
+  // As duas tags são excludentes: em um reenvio vale o último envio, então a outra sai
+  // (remove_tags, suportado pelo upsert do CRM; num CRM antigo o campo é ignorado).
   const tags = [TAG_ORIGEM, lead.qualified ? TAG_QUALIFICADO : TAG_NAO_QUALIFICADO];
+  const removeTags = [lead.qualified ? TAG_NAO_QUALIFICADO : TAG_QUALIFICADO];
   await ensureTagsInCatalog(crm, tags);
 
   let contact;
@@ -90,6 +105,7 @@ module.exports = async function handler(req, res) {
       email: lead.email,
       phone: lead.phone,
       tags,
+      remove_tags: removeTags,
       custom_fields: lead.customFields,
     });
   } catch (err) {
@@ -106,8 +122,18 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  return success(res, isHtmlForm);
+  return success(res, isHtmlForm, lead.qualified);
 };
+
+// Classifica o lead pelo que ele declarou. Devolve todos os critérios que falharam, não só o
+// primeiro, para o CRM mostrar por que o tráfego de cada campanha não qualifica.
+function qualify(answers) {
+  const motivos = [];
+  if (!answers.dificuldade || answers.dificuldade === 'nenhuma') motivos.push('sem_dor');
+  if (!URGENTES.includes(answers.prioridade)) motivos.push('sem_urgencia');
+  if (!FATURAMENTO_QUALIFICA.includes(answers.faturamento)) motivos.push('faturamento_baixo');
+  return { qualified: motivos.length === 0, motivos };
+}
 
 function normalize(body) {
   const nome = clean(body.nome, 120);
@@ -118,23 +144,29 @@ function normalize(body) {
   if (nome.length < 2) return { error: 'Informe o seu nome.' };
   if (!EMAIL_RE.test(email)) return { error: 'Informe um e-mail válido.' };
   if (phone.length !== 10 && phone.length !== 11) return { error: 'Informe o WhatsApp com DDD.' };
+  const loja = clean(body.loja, 200);
+  if (!STORE_HANDLE_RE.test(loja) && !STORE_DOMAIN_RE.test(loja)) {
+    return { error: 'Informe o site ou o @ da sua loja.' };
+  }
 
   const answers = {};
   for (const key of Object.keys(LABELS)) {
     const value = clean(body[key], 20);
     answers[key] = LABELS[key][value] ? value : '';
   }
-  // Mesma regra do front: quem tem dor, urgência e verba a partir de R$5 mil
-  const qualified = answers.dificuldade !== '' && answers.dificuldade !== 'nenhuma'
-    && ['agora', '3meses'].includes(answers.prioridade)
-    && ['5a10k', '10a20k', '20kmais'].includes(answers.investimento);
+  const { qualified, motivos } = qualify(answers);
 
   const attribution = body.attribution && typeof body.attribution === 'object' ? body.attribution : {};
   const customFields = {
     lp_dificuldade: LABELS.dificuldade[answers.dificuldade] || '',
     lp_prioridade: LABELS.prioridade[answers.prioridade] || '',
-    lp_investimento: LABELS.investimento[answers.investimento] || '',
+    lp_faturamento: LABELS.faturamento[answers.faturamento] || '',
+    lp_site_loja: loja,
     lp_qualificado: qualified ? 'Sim' : 'Não',
+    // "Nenhum" (e não vazio) porque campos vazios não são enviados, e o CRM mantém o valor
+    // antigo no reenvio: sem isso, um lead que passou a qualificar ficaria com os motivos antigos.
+    lp_motivos: qualified ? 'Nenhum' : motivos.join(', '),
+    lp_regra_versao: REGRA_VERSAO,
     lp_origem: 'Landing page — Sessão estratégica',
     lp_data_envio: new Date().toISOString(),
     lp_pagina: clean(body.page, 300),
@@ -208,8 +240,8 @@ function clean(value, max) {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
-function success(res, isHtmlForm) {
-  return isHtmlForm ? redirect(res, '/obrigado') : send(res, 200, { ok: true });
+function success(res, isHtmlForm, qualified) {
+  return isHtmlForm ? redirect(res, '/obrigado') : send(res, 200, { ok: true, qualified });
 }
 
 function failure(res, isHtmlForm, status) {
