@@ -23,11 +23,11 @@ const LABELS = {
     conhecendo: 'Estou apenas conhecendo opções, sem intenção de mudar por enquanto',
   },
   faturamento: {
-    ate20k: 'Menos de R$20.000',
-    '20a40k': 'De R$20.000 a R$39.999',
-    '40a70k': 'De R$40.000 a R$69.999',
-    '70a100k': 'De R$70.000 a R$99.999',
-    '100kmais': 'R$100.000 ou mais',
+    '100kmais': 'R$100 mil ou mais',
+    '70a100k': 'De R$70 mil a R$100 mil',
+    '40a70k': 'De R$40 mil a R$70 mil',
+    '20a40k': 'De R$20 mil a R$40 mil',
+    ate20k: 'Menos de R$20 mil',
   },
 };
 
