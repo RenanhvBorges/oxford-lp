@@ -1154,14 +1154,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </fieldset>
 
         <fieldset class="step" data-step="3">
-          <legend class="step-q" tabindex="-1">Quanto sua empresa planeja investir em marketing por mês a partir de agora?</legend>
-          <p class="step-help">Considere anúncios, ferramentas e mão de obra, incluindo agência ou equipe.</p>
+          <legend class="step-q" tabindex="-1">Quanto a sua loja online fatura por mês, em média?</legend>
+          <p class="step-help">Considere os últimos três meses. Uma estimativa já serve.</p>
           <div class="opts">
-            <label class="opt"><input type="radio" name="investimento" value="ate5k" required><span class="opt-box" aria-hidden="true"></span><span class="opt-text">Menos de R$5.000</span></label>
-            <label class="opt"><input type="radio" name="investimento" value="5a10k"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">De R$5.000 a R$9.999</span></label>
-            <label class="opt"><input type="radio" name="investimento" value="10a20k"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">De R$10.000 a R$19.999</span></label>
-            <label class="opt"><input type="radio" name="investimento" value="20kmais"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">R$20.000 ou mais</span></label>
-            <label class="opt"><input type="radio" name="investimento" value="indefinido"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">Ainda não defini um orçamento</span></label>
+            <label class="opt"><input type="radio" name="faturamento" value="ate20k" required><span class="opt-box" aria-hidden="true"></span><span class="opt-text">Menos de R$20.000</span></label>
+            <label class="opt"><input type="radio" name="faturamento" value="20a40k"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">De R$20.000 a R$39.999</span></label>
+            <label class="opt"><input type="radio" name="faturamento" value="40a70k"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">De R$40.000 a R$69.999</span></label>
+            <label class="opt"><input type="radio" name="faturamento" value="70a100k"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">De R$70.000 a R$99.999</span></label>
+            <label class="opt"><input type="radio" name="faturamento" value="100kmais"><span class="opt-box" aria-hidden="true"></span><span class="opt-text">R$100.000 ou mais</span></label>
           </div>
           <p class="step-error" role="alert"></p>
           <div class="step-nav">
@@ -1187,6 +1187,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label for="f-whatsapp">WhatsApp</label>
             <input id="f-whatsapp" name="whatsapp" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(00) 00000-0000" maxlength="20" required aria-describedby="e-whatsapp">
             <p class="field-error" id="e-whatsapp" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="f-loja">Site ou @ da loja</label>
+            <input id="f-loja" name="loja" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" inputmode="url" placeholder="www.sualoja.com.br ou @sualoja" maxlength="200" required aria-describedby="e-loja">
+            <p class="field-error" id="e-loja" role="alert"></p>
           </div>
           <div class="hp" aria-hidden="true">
             <label for="f-site">Não preencha este campo</label>
@@ -1506,7 +1511,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const bar = form.querySelector('.form-bar span');
   const submitBtn = form.querySelector('.btn-submit');
   const fallback = form.querySelector('[data-fallback]');
-  const QUESTIONS = ['dificuldade', 'prioridade', 'investimento'];
+  const QUESTIONS = ['dificuldade', 'prioridade', 'faturamento'];
   let current = 0;
   let started = false;
   let lastPointer = 0;
@@ -1547,6 +1552,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return v;
   };
 
+  // Site (com ou sem http/www/caminho) ou @ do Instagram; mesma checagem do servidor
+  const validStore = (v) => /^@[A-Za-z0-9._]{2,30}$/.test(v) || /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?([/?#]\S*)?$/i.test(v);
+
   const validate = (i) => {
     const step = steps[i];
     if (i < QUESTIONS.length) {
@@ -1554,14 +1562,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       step.querySelector('.step-error').textContent = ok ? '' : 'Escolha uma opção para continuar.';
       return ok;
     }
-    const { nome, email, whatsapp } = form.elements;
+    const { nome, email, whatsapp, loja } = form.elements;
     const phone = phoneDigits();
     const results = [
       setFieldError(nome, nome.value.trim().length >= 2 ? '' : 'Informe o seu nome.'),
       setFieldError(email, /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()) ? '' : 'Informe um e-mail válido.'),
-      setFieldError(whatsapp, (phone.length === 10 || phone.length === 11) && !/^(\d)\1+$/.test(phone) ? '' : 'Informe o WhatsApp com DDD.')
+      setFieldError(whatsapp, (phone.length === 10 || phone.length === 11) && !/^(\d)\1+$/.test(phone) ? '' : 'Informe o WhatsApp com DDD.'),
+      setFieldError(loja, validStore(loja.value.trim()) ? '' : 'Informe o site (sualoja.com.br) ou o @ da sua loja.')
     ];
-    const firstInvalid = [nome, email, whatsapp][results.indexOf(false)];
+    const firstInvalid = [nome, email, whatsapp, loja][results.indexOf(false)];
     if (firstInvalid) firstInvalid.focus();
     return !firstInvalid;
   };
@@ -1588,7 +1597,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (v.length > 6) out = v.length > 10 ? `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}` : `(${v.slice(0, 2)}) ${v.slice(2, 6)}-${v.slice(6)}`;
     e.target.value = out;
   });
-  ['nome', 'email', 'whatsapp'].forEach((n) => form.elements[n].addEventListener('blur', (e) => {
+  ['nome', 'email', 'whatsapp', 'loja'].forEach((n) => form.elements[n].addEventListener('blur', (e) => {
     if (e.target.getAttribute('aria-invalid') === 'true') validate(QUESTIONS.length);
   }));
 
@@ -1602,17 +1611,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (current === 0) show(1, false);
   }));
 
-  const isQualified = (a) => a.dificuldade !== 'nenhuma'
-    && ['agora', '3meses'].includes(a.prioridade)
-    && ['5a10k', '10a20k', '20kmais'].includes(a.investimento);
-
   const whatsappLink = (nome) => {
     const lines = [
       'Olá! Quero agendar a minha Sessão Estratégica com a Oxford.',
       nome ? `Meu nome é ${nome}.` : '',
       answerLabel('dificuldade') ? `Situação: ${answerLabel('dificuldade')}.` : '',
       answerLabel('prioridade') ? `Prioridade: ${answerLabel('prioridade')}.` : '',
-      answerLabel('investimento') ? `Investimento previsto: ${answerLabel('investimento')}.` : ''
+      answerLabel('faturamento') ? `Faturamento mensal da loja: ${answerLabel('faturamento')}.` : ''
     ].filter(Boolean);
     return 'https://wa.me/5521964791690?text=' + encodeURIComponent(lines.join('\n'));
   };
@@ -1625,13 +1630,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     const answers = Object.fromEntries(QUESTIONS.map((q) => [q, answer(q)]));
-    const qualified = isQualified(answers);
     const eventId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
     const nome = form.elements.nome.value.trim();
     const email = form.elements.email.value.trim().toLowerCase();
     const phone = phoneDigits();
     const payload = Object.assign({}, answers, {
       nome, email, whatsapp: phone,
+      loja: form.elements.loja.value.trim(),
       website: form.elements.website.value,
       attribution: Object.assign({}, attribution, metaIds()),
       page: location.origin + location.pathname, event_id: eventId
@@ -1650,6 +1655,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
       clearTimeout(timer);
       if (!res.ok) throw new Error('HTTP ' + res.status);
+      // A classificação (MQL) é feita só no servidor, para a regra existir em um lugar único
+      const result = await res.json().catch(() => ({}));
+      const qualified = result.qualified === true;
 
       store.set('oxf_lead', { nome: nome.split(' ')[0], wa: whatsappLink(nome) });
       store.del('oxf_form');
@@ -1660,7 +1668,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         lead_qualificado: qualified,
         lp_dificuldade: answers.dificuldade,
         lp_prioridade: answers.prioridade,
-        lp_investimento: answers.investimento,
+        lp_faturamento: answers.faturamento,
         user_data: { email, phone_number: '+55' + phone },
         eventCallback: go,
         eventTimeout: 1500
